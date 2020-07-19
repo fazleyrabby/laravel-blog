@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Page Header -->
-   <header class="masthead" style="background-image: url({{ $category->thumbnail }})">
+   <header class="masthead" style="background-image: url({{ $category->thumbnail }}">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
@@ -21,8 +21,8 @@
     <div class="row">
       <div class="col-lg-8 col-md-8 mx-auto">
         @foreach ($posts as $post)
-            
-        
+
+
         <div class="post-preview">
         <a href="{{ url('post/' . $post->slug)}} ">
             <h2 class="post-title">
@@ -39,10 +39,10 @@
             on {{ date('M d, Y', strtotime($post->created_at)) }}
             @if (count($post->categories) > 0 )
                {{ $count = count($post->categories) }}
-             | <span class="post-category">  
-                Category : 
-                 @foreach($post->categories as $i => $category)  
-                        
+             | <span class="post-category">
+                Category :
+                 @foreach($post->categories as $i => $category)
+
                         <a href="{{ url('category/' . $category->slug)  }}"> {{ $category->name }} </a>
 
                         @if ($i < $count - 1){{ ',' }}

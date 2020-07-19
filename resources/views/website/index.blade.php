@@ -21,8 +21,8 @@
     <div class="row">
       <div class="col-lg-8 col-md-8 mx-auto">
         @foreach ($posts as $post)
-            
-        
+
+
         <div class="post-preview">
         <a href="{{ url('post/' . $post->slug)}} ">
             <h2 class="post-title">
@@ -38,11 +38,11 @@
             </a>
             on {{ date('M d, Y', strtotime($post->created_at)) }}
             @if (count($post->categories) > 0 )
-               {{ $count = count($post->categories) }}
-             | <span class="post-category">  
-                Category : 
-                 @foreach($post->categories as $i => $category)  
-                        
+               @php $count = count($post->categories) @endphp
+             | <span class="post-category">
+                Category :
+                 @foreach($post->categories as $i => $category)
+
                         <a href="{{ url('category/' . $category->slug)  }}"> {{ $category->name }} </a>
 
                         @if ($i < $count - 1){{ ',' }}
@@ -67,7 +67,7 @@
           <div class="category">
               <h2 class="category-title">Category</h2>
               <ul class="category-list">
-                  @foreach($categories as $category) 
+                  @foreach($categories as $category)
               <li><a href="{{ url('category/' . $category->slug)}}">{{ $category->name }}</a></li>
                  @endforeach
               </ul>

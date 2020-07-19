@@ -49,7 +49,7 @@ class CategoryController extends Controller
         ]);
         $category = new Category();
         $category->thumbnail = $request->thumbnail;
-        $category->user_id = Auth::id(); 
+        $category->user_id = Auth::id();
         $category->name = $request->name;
         $category->slug = str_slug($request->name);
         $category->is_published = $request->is_published;
@@ -58,8 +58,6 @@ class CategoryController extends Controller
         // dd($category);
         Session::flash('message', 'Category created successfully');
         return redirect()->route('categories.index');
-
-    
     }
 
     /**
@@ -79,9 +77,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        return view('admin.category.edit', compact('category'));
     }
 
     /**
@@ -91,9 +89,27 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Category $category)
     {
-        //
+        $this->validate($request, [
+            'thumbnail' => 'required',
+            'name' => 'required|unique:categories,name,'. $category->id
+        ],
+        [
+            'thumbnail.required' => 'Enter thumnail url',
+            'name.required' => 'Enter name',
+            'name.unique' => 'Category already exist',
+        ]);
+
+        $category->thumbnail = $request->thumbnail;
+        $category->user_id = Auth::id();
+        $category->name = $request->name;
+        $category->slug = str_slug($request->name);
+        $category->is_published = $request->is_published;
+        $category->save();
+
+        Session::flash('message', 'Category updated successfully');
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -107,6 +123,5 @@ class CategoryController extends Controller
         $category->delete();
         Session::flash('delete-message', 'Category deleted successfully');
         return redirect()->route('categories.index');
-
     }
 }

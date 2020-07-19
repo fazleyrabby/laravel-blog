@@ -62,17 +62,17 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
+
+           @php ($pages=getPages())
+              @foreach($pages as $page)
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('page/'. $page->slug)}}">{{ $page->title }}</a>
+            </li>
+            @endforeach
+
           <li class="nav-item">
-          <a class="nav-link" href="{{ url('/')}}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">Sample Post</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="">Contact</a>
+            <a class="nav-link" href="{{ route('contact.show') }}">Contact</a>
           </li>
         </ul>
       </div>
@@ -80,7 +80,7 @@
   </nav>
 
   @yield('content');
-  
+
 
   <hr>
 
